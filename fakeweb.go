@@ -173,12 +173,12 @@ func (s *Site) populate() {
 		totalLinks := rng.Intn(MaxLinksPerFile-1) + 1
 		for i := 0; i < totalLinks; i++ {
 			// My webcrawler looks for this, but it can be whatever
-			f.content += "<a href=\"" + Sites[rng.Intn(len(Sites))].GetRandLink() + "\"><\\a>\n"
+			f.content += "<a href=\"" + RandSite().RandLink() + "\"><\\a>\n"
 		}
 	}
 }
 
-func (s *Site) GetRandLink() string {
+func (s *Site) RandLink() string {
 	return s.scheme + "://" + s.host + s.files[rng.Intn(len(s.files))].getPath()
 }
 
@@ -202,6 +202,10 @@ func Init(size int) {
 	for i := 0; i < size; i++ {
 		Sites[i].populate()
 	}
+}
+
+func RandSite() *Site {
+	return Sites[rng.Intn(len(Sites))]
 }
 
 func Get(urlstr string) (*http.Response, error) {
@@ -228,4 +232,3 @@ func Get(urlstr string) (*http.Response, error) {
 	}
 	return fakeResp, nil
 }
-
