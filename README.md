@@ -90,7 +90,6 @@ package main
 import (
 	"fmt"
 	"io"
-	"math/rand"
 	"github.com/nathaniel28/fakeweb"
 )
 
