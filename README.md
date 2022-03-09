@@ -11,7 +11,7 @@ They can be found using a function similar to http.Get, also called Get:
 ```
 // fakeweb.Init must be called prior to the following.
 // The following line is quite a mouthful. One second, I'm adding a new function...
-randURL := fakeweb.Sites[rand.Intn(len(fakeweb.Sites))].GetRandLink()
+randURL := fakeweb.RandSite().RandLink()
 resp, err := fakeweb.Get(randURL)
 if err != nil {
 	// handle error (in this case however, Get will always succeed since
@@ -55,6 +55,10 @@ var (
     func Init(size int)
 Init creates size number of Sites that can be found with Get. After init is called once, it may be unsafe to call again.
 
+### func RandSite
+    func RandSite() *Site
+Calls to RandSite before Init is called will cause a panic. RandSite returns a random \*Site from Sites.
+
 ### func Get
     func Get(urlstr string) (resp *http.Response, err error)
 Calls to Get before Init is called will cause a panic. The only fields of resp containing usefull information are resp.StatusCode and resp.Body. Links found in resp.Body are strings such as \<a href="example.com/foo"><\\a>, though resp.Body is not valid html.
@@ -72,9 +76,9 @@ type Site struct {
 }
 ```
 
-### func (\*Site) GetRandLink
-    func (s *Site) GetRandLink() string
-GetRandLink returns a link to a random file in Site s. This link can be passed to Get.
+### func (\*Site) RandLink
+    func (s *Site) RandLink() string
+RandLink returns a link to a random file in Site s. This link can be passed to Get.
 
 ### func (\*Site) Print
     func (s *Site) Print()
@@ -94,10 +98,10 @@ import (
 func main() {
 	fakeweb.Init(10)
 	
-	resp, err := fakeweb.Get(fakeweb.Sites[rand.Intn(len(fakeweb.Sites))].GetRandLink())
+	resp, err := fakeweb.Get(fakeweb.RandSite().RandLink())
 	if err != nil {
 		// This is unnecessary, as in this case Get will always
-		// succeed since the link passed to it is from GetRandLink
+		// succeed since the link passed to it is from RandLink
 		fmt.Println(err)
 		return
 	}
