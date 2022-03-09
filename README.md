@@ -1,1 +1,3 @@
 # fakeweb
+
+I have no idea how to make a module in go. Nothing I do can get this to be imported by another program. At least the code works...
