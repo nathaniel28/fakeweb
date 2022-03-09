@@ -9,7 +9,7 @@ They are generated with Init.
 They can be found using a function similar to http.Get, also called Get:
 
 ```
-// fakeweb.Init must be called prior to the following.
+// Init must be called prior to the following.
 randURL := fakeweb.RandSite().RandLink()
 resp, err := fakeweb.Get(randURL)
 if err != nil {
