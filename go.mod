@@ -1,3 +1,3 @@
-module github.com/nathaniel28/fakeweb/v0.0.0
+module github.com/nathaniel28/fakeweb
 
 go 1.16
